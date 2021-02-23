@@ -35,17 +35,17 @@ class CampusesController extends Controller
 
         if ($request) {
             $campuse->Name = $request->Name;
-            $campuse->School = $request->School;
+            $campuse->school = $request->school;
             $campuse->email = $request->email;
             $campuse->phone = $request->phone;
             $campuse->address = $request->address;
             if ($campuse->save()) {
-                return response()->json(["success" => "Campuse Added.", "data" => $campuse], 200);
+                return response()->json(["success" => "Campuse Added."], 200);
             } else {
-                return response()->json(["error" => "Adding data failed.", "data" => $campuse], 400);
+                return response()->json(["error" => "Adding data failed."], 400);
             }
         } else {
-            return response()->json(["error" => "Data is wrong", "data" => $campuse], 400);
+            return response()->json(["error" => "Data is wrong"], 400);
         }
     }
 
@@ -79,7 +79,7 @@ class CampusesController extends Controller
 
         if ($request) {
             $campuse->Name = $request->Name;
-            $campuse->School = $request->School;
+            $campuse->school = $request->school;
             $campuse->email = $request->email;
             $campuse->phone = $request->phone;
             $campuse->address = $request->address;
