@@ -19,6 +19,7 @@ class CreateSchoolsTable extends Migration
             $table->string('email');
             $table->string('logo');
             $table->string('website');
+            $table->timestamps();
         });
     }
 

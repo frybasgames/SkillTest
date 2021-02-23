@@ -26,21 +26,20 @@ class CourseTypesController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $validated =$request->validate([
             'Name' => 'required'
         ]);
 
-        $CourseType = new CourseTypes();
-
-        if ($request) {
+        if ($validated) {
+            $CourseType = new CourseTypes();
             $CourseType->Name = $request->Name;
             if ($CourseType->save()) {
                 return response()->json(["success" => "Campuse Added.", "data" => $CourseType], 200);
             } else {
-                return response()->json(["error" => "Adding data failed.", "data" => $CourseType], 400);
+                return response()->json(["error" => "Adding data failed." ], 400);
             }
         } else {
-            return response()->json(["error" => "Data is wrong", "data" => $CourseType], 400);
+            return response()->json(["error" => "Data is wrong"], 400);
         }
     }
 

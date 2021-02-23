@@ -26,21 +26,21 @@ class CampusesController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $validated =$request->validate([
             'Name' => 'required',
-            'School' => 'required'
+            'school' => 'required'
         ]);
 
         $campuse = new Campuses();
 
-        if ($request) {
+        if ($validated) {
             $campuse->Name = $request->Name;
             $campuse->school = $request->school;
             $campuse->email = $request->email;
             $campuse->phone = $request->phone;
             $campuse->address = $request->address;
             if ($campuse->save()) {
-                return response()->json(["success" => "Campuse Added."], 200);
+                return response()->json(["success" => "Campuse Added.", "data" => $campuse], 200);
             } else {
                 return response()->json(["error" => "Adding data failed."], 400);
             }
@@ -70,26 +70,28 @@ class CampusesController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         $campuse = Campuses::find($id);
 
-        $request->validate([
+        $validated =$request->validate([
             'Name' => 'required',
-            'School' => 'required'
+            'school' => 'required'
         ]);
 
-        if ($request) {
+
+        if ($validated) {
             $campuse->Name = $request->Name;
             $campuse->school = $request->school;
             $campuse->email = $request->email;
             $campuse->phone = $request->phone;
             $campuse->address = $request->address;
-            if ($campuse->update()) {
-                return response()->json(["success" => "Information successfully edited.", "data" => $campuse], 200);
+            if ($campuse->save()) {
+                return response()->json(["success" => "Campuse Added."], 200);
             } else {
-                return response()->json(["error" => "Update data failed.", "data" => $campuse], 400);
+                return response()->json(["error" => "Adding data failed."], 400);
             }
         } else {
-            return response()->json(["error" => "Data is wrong.", "data" => $campuse], 400);
+            return response()->json(["error" => "Data is wrong"], 400);
         }
     }
 

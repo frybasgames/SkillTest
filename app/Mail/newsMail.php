@@ -3,7 +3,6 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
@@ -11,14 +10,17 @@ class newsMail extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $details;
+
+
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($details)
     {
-        //
+        $this->$details = $details;
     }
 
     /**
@@ -29,8 +31,7 @@ class newsMail extends Mailable
     public function build()
     {
         return $this
-        ->from('omerfarukermis171@gmail.com')
         ->subject('Add new School')
-        ->view('mails.mail.blade.php');
+        ->view('mails.mail');
     }
 }

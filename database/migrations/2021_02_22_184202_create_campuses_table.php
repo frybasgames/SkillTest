@@ -21,6 +21,7 @@ class CreateCampusesTable extends Migration
             $table->string('phone');
             $table->string('address');
             $table->foreign('school')->references('id')->on('schools')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 

@@ -21,6 +21,7 @@ class CreateCoursesTable extends Migration
             $table->string('price');
             $table->foreign('campus')->references('id')->on('campuses')->onDelete('cascade');
             $table->foreign('courseTypes')->references('id')->on('course_types')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 

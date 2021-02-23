@@ -6,6 +6,7 @@ use App\Mail\newsMail;
 use App\Models\School;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 
 class SchoolController extends Controller
 {
@@ -28,32 +29,31 @@ class SchoolController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $validated =$request->validate([
             'Name' => 'required',
             'email' => 'required|email',
             'logo' => 'required|mimes:jpeg,jpg,png,gif|dimensions:min_width=100,min_height=100',
         ]);
 
-        $school = new School();
-
-        if ($request) {
+            $path = Storage::path($request->logo);
+            $path = $request->file('logo')->store(
+                'logo', 'public'
+            );
+        if ($validated) {
+            $school = new School();
             $school->Name = $request->Name;
             $school->email = $request->email;
-
-            $file = file_exists(public_path().'/logo'.$school->id);
-            if (!$file){
-                mkdir(public_path().'/logo'.$school->id);
-            }
-            $school->logo = $request->logo;
+            $school->logo =$path;
             $school->website = $request->website;
             if ($school->save()) {
-                Mail::to(request('email'))->send(new newsMail());
+               // $mailSent = new newsMail();
+               // $mailSent->sendMail();
                 return response()->json(["success" => "School Added.", "data" => $school], 200);
             } else {
-                return response()->json(["error" => "Adding data failed.", "data" => $school], 400);
+                return response()->json(["error" => "Adding data failed."], 400);
             }
         } else {
-            return response()->json(["error" => "Data is wrong", "data" => $school], 400);
+            return response()->json(["error" => "Data is wrong"], 400);
         }
     }
 

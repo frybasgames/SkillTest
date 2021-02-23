@@ -18,33 +18,29 @@ class CoursesController extends Controller
         return response()->json($courses);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
-        $request->validate([
+        $validated=$request->validate([
             'Name' => 'required',
-            'Campus' => 'required',
-            'CourseTypes' => 'required_without_all:CourseTypes',
+            'campus' => 'required',
+            'courseTypes' => 'required_without_all:courseTypes',
         ]);
 
-        $course = new Courses();
 
-        if ($request) {
+        if ($validated) {
+            $course = new Courses();
             $course->Name = $request->Name;
-            $course->Campus = $request->Campus;
-            $course->CourseTypes = $request->CourseTypes;
+            $course->campus = $request->campus;
+            $course->courseTypes = $request->courseTypes;
+            $course->price = $request->price;
             if ($course->save()) {
                 return response()->json(["success" => "Course Added.", "data" => $course], 200);
             } else {
-                return response()->json(["error" => "Adding data failed.", "data" => $course], 400);
+                return response()->json(["error" => "Adding data failed."], 400);
             }
         } else {
-            return response()->json(["error" => "Data is wrong", "data" => $course], 400);
+            return response()->json(["error" => "Data is wrong"], 400);
         }
     }
 
@@ -71,24 +67,27 @@ class CoursesController extends Controller
     {
         $course = Courses::find($id);
 
-        $request->validate([
+        $validated=$request->validate([
             'Name' => 'required',
-            'Campus' => 'required',
-            'CourseTypes' => 'required_without_all:CourseTypes',
+            'campus' => 'required',
+            'courseTypes' => 'required_without_all:courseTypes',
         ]);
 
-        if ($request) {
+
+        if ($validated) {
             $course->Name = $request->Name;
-            $course->Campus = $request->Campus;
-            $course->CourseTypes = $request->CourseTypes;
-            if ($course->update()) {
-                return response()->json(["success" => "Information successfully edited.", "data" => $course], 200);
+            $course->campus = $request->campus;
+            $course->courseTypes = $request->courseTypes;
+            $course->price = $request->price;
+            if ($course->save()) {
+                return response()->json(["success" => "Course Added.", "data" => $course], 200);
             } else {
-                return response()->json(["error" => "Update data failed.", "data" => $course], 400);
+                return response()->json(["error" => "Adding data failed."], 400);
             }
-        }else{
-            return response()->json(["error" => "Data is wrong.", "data" => $course], 400);
+        } else {
+            return response()->json(["error" => "Data is wrong"], 400);
         }
+
     }
 
     /**
