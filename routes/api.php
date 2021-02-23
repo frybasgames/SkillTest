@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 
- Route::apiResource('school', 'App\Http\Controllers\SchoolController');
+Route::apiResource('school', 'App\Http\Controllers\SchoolController');
 
 Route::apiResource('campuses', 'App\Http\Controllers\CampusesController');
 
