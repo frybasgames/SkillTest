@@ -24,7 +24,7 @@ class CampusesTableSeeder extends Seeder
 
         DB::table("campuses")->insert([
             'Name' => Str::random(20),
-            'school' => $schoolsIDs[0],
+            'school' => $schoolsIDs[rand(1,count($schoolsIDs))],
             'email' => $faker->safeEmail,
             'phone' => $faker->phoneNumber,
             'address' => $faker->address,

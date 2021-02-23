@@ -21,8 +21,8 @@ class CourseTableSeeder extends Seeder
 
         DB::table("courses")->insert([
             'Name' => Str::random(20),
-            'campus' => $campusesIDs[0],
-            'CourseTypes' => $course_typesIDs[0],
+            'campus' => $campusesIDs[rand(1,count($campusesIDs))],
+            'CourseTypes' => $course_typesIDs[rand(1,count($course_typesIDs))],
             'price' => rand( 10 , 20 ) / 10
         ]);
     }
