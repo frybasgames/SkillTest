@@ -23,6 +23,3 @@ Route::apiResource('course', 'App\Http\Controllers\CoursesController');
 
 Route::apiResource('courseTypes', 'App\Http\Controllers\CourseTypesController');
 
-// Route::get('/test/mail',function(){
-//     return new App\Mail\newsMail();
-// });
