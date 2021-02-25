@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\CourseTypes;
+use App\Models\CourseType;
 use Illuminate\Http\Request;
 
 class CourseTypesController extends Controller
@@ -14,7 +14,7 @@ class CourseTypesController extends Controller
      */
     public function index()
     {
-        $courseTypes = CourseTypes::all();
+        $courseTypes = CourseType::all();
         return response()->json($courseTypes);
     }
 
@@ -31,7 +31,7 @@ class CourseTypesController extends Controller
         ]);
 
         if ($validated) {
-            $CourseType = new CourseTypes();
+            $CourseType = new CourseType();
             $CourseType->Name = $request->Name;
             if ($CourseType->save()) {
                 return response()->json(["success" => "Campuse Added.", "data" => $CourseType], 200);
@@ -51,7 +51,7 @@ class CourseTypesController extends Controller
      */
     public function show($id)
     {
-        $CourseType = CourseTypes::find($id);
+        $CourseType = CourseType::find($id);
         return response()->json($CourseType);
     }
 
@@ -64,7 +64,7 @@ class CourseTypesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $CourseType = CourseTypes::find($id);
+        $CourseType = CourseType::find($id);
 
         $request->validate([
             'Name' => 'required'
@@ -90,7 +90,7 @@ class CourseTypesController extends Controller
      */
     public function destroy($id)
     {
-        CourseTypes::destroy($id);
+        CourseType::destroy($id);
         return response()->json('Course Type successfully deleted.');
     }
 }

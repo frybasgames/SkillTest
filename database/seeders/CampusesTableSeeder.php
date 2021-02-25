@@ -23,7 +23,7 @@ class CampusesTableSeeder extends Seeder
         $schoolsIDs = DB::table('schools')->pluck('id');
 
         DB::table("campuses")->insert([
-            'Name' => Str::random(20),
+            'name' => Str::random(20),
             'school' => $schoolsIDs[rand(0,count($schoolsIDs)-1)],
             'email' => $faker->safeEmail,
             'phone' => $faker->phoneNumber,

@@ -19,7 +19,7 @@ class SchoolTableSeeder extends Seeder
         $faker = Faker::create('en_GB');
 
         DB::table("schools")->insert([
-            'Name' => Str::random(20),
+            'name' => Str::random(20),
             'email' => $faker->safeEmail,
             'logo' => Str::random(20),
             'website' => Str::random(20)

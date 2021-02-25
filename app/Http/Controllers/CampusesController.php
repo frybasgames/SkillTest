@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Campuses;
+use App\Models\Campus;
 use Illuminate\Http\Request;
 
 class CampusesController extends Controller
@@ -14,7 +14,7 @@ class CampusesController extends Controller
      */
     public function index()
     {
-        $campuses = Campuses::all();
+        $campuses = Campus::all();
         return response()->json($campuses);
     }
 
@@ -31,7 +31,7 @@ class CampusesController extends Controller
             'school' => 'required'
         ]);
 
-        $campuse = new Campuses();
+        $campuse = new Campus();
 
         if ($validated) {
             $campuse->Name = $request->Name;
@@ -57,7 +57,7 @@ class CampusesController extends Controller
      */
     public function show($id)
     {
-        $campuse = Campuses::find($id);
+        $campuse = Campus::find($id);
         return response()->json($campuse);
     }
 
@@ -71,7 +71,7 @@ class CampusesController extends Controller
     public function update(Request $request, $id)
     {
 
-        $campuse = Campuses::find($id);
+        $campuse = Campus::find($id);
 
         $validated =$request->validate([
             'Name' => 'required',
@@ -103,7 +103,7 @@ class CampusesController extends Controller
      */
     public function destroy($id)
     {
-        Campuses::destroy($id);
+        Campus::destroy($id);
         return response()->json('Campus successfully deleted.');
     }
 }

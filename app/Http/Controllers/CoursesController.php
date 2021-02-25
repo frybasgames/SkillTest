@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Courses;
+use App\Models\Course;
 use Illuminate\Http\Request;
 
 class CoursesController extends Controller
@@ -14,7 +14,7 @@ class CoursesController extends Controller
      */
     public function index()
     {
-        $courses = Courses::all();
+        $courses = Course::all();
         return response()->json($courses);
     }
 
@@ -29,7 +29,7 @@ class CoursesController extends Controller
 
 
         if ($validated) {
-            $course = new Courses();
+            $course = new Course();
             $course->Name = $request->Name;
             $course->campus = $request->campus;
             $course->courseTypes = $request->courseTypes;
@@ -52,7 +52,7 @@ class CoursesController extends Controller
      */
     public function show($id)
     {
-        $course = Courses::find($id);
+        $course = Course::find($id);
         return response()->json($course);
     }
 
@@ -65,7 +65,7 @@ class CoursesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $course = Courses::find($id);
+        $course = Course::find($id);
 
         $validated=$request->validate([
             'Name' => 'required',
@@ -98,7 +98,7 @@ class CoursesController extends Controller
      */
     public function destroy($id)
     {
-        Courses::destroy($id);
+        Course::destroy($id);
         return response()->json('Course Type successfully deleted.');
     }
 }
