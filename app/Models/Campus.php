@@ -9,6 +9,9 @@ class Campus extends Model
 {
     use HasFactory;
 
+    protected $fillable=['name','school','email','phone','address'];
+
+
     public function Schools(){
         return $this->belongsToMany('App\Models\School' , 'schools');
     }

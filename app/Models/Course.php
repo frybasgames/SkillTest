@@ -9,6 +9,9 @@ class Course extends Model
 {
     use HasFactory;
 
+    protected $fillable=['name'];
+
+
     public function Campuses(){
         return $this->belongsTo('App\Models\Campuses' , 'campuses');
     }
