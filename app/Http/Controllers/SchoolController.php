@@ -41,7 +41,7 @@ class SchoolController extends Controller
             );
         if ($validated) {
             $school = new School();
-            $school->Name = $request->Name;
+            $school->name = $request->name;
             $school->email = $request->email;
             $school->logo =$path;
             $school->website = $request->website;
@@ -87,7 +87,7 @@ class SchoolController extends Controller
         ]);
 
         if ($request) {
-            $school->Name = $request->Name;
+            $school->name = $request->name;
             $school->email = $request->email;
             $school->logo = $request->logo;
             $school->request = $request->request;

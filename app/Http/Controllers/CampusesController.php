@@ -35,7 +35,7 @@ class CampusesController extends Controller
 
         $campuse = new Campus();
 
-            $campuse->Name = $request->Name;
+            $campuse->name = $request->name;
             $campuse->school = $request->school;
             $campuse->email = $request->email;
             $campuse->phone = $request->phone;
@@ -74,7 +74,7 @@ class CampusesController extends Controller
 
 
 
-            $campuse->Name = $request->Name;
+            $campuse->name = $request->name;
             $campuse->school = $request->school;
             $campuse->email = $request->email;
             $campuse->phone = $request->phone;

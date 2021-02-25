@@ -30,7 +30,7 @@ class CoursesController extends Controller
 
         if ($validated) {
             $course = new Course();
-            $course->Name = $request->Name;
+            $course->name = $request->name;
             $course->campus = $request->campus;
             $course->courseTypes = $request->courseTypes;
             $course->price = $request->price;
@@ -75,7 +75,7 @@ class CoursesController extends Controller
 
 
         if ($validated) {
-            $course->Name = $request->Name;
+            $course->name = $request->name;
             $course->campus = $request->campus;
             $course->courseTypes = $request->courseTypes;
             $course->price = $request->price;

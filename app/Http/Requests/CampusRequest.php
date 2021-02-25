@@ -24,8 +24,16 @@ class CampusRequest extends FormRequest
     public function rules()
     {
         return [
-            'Name' => 'required',
+            'name' => 'required',
             'school' => 'required'
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            'name' => 'name',
+            'school' => 'school'
         ];
     }
 

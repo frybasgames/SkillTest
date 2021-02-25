@@ -32,7 +32,7 @@ class CourseTypesController extends Controller
 
         if ($validated) {
             $CourseType = new CourseType();
-            $CourseType->Name = $request->Name;
+            $CourseType->name = $request->name;
             if ($CourseType->save()) {
                 return response()->json(["success" => "Campuse Added.", "data" => $CourseType], 200);
             } else {
@@ -71,7 +71,7 @@ class CourseTypesController extends Controller
         ]);
 
         if($request){
-            $CourseType->Name = $request->Name;
+            $CourseType->name = $request->name;
             if($CourseType->update()){
                 return response()->json(["success" => "Information successfully edited.", "data" => $CourseType], 200);
             } else {
