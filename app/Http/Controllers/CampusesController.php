@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CampusRequest;
 use App\Models\Campus;
 use Illuminate\Http\Request;
 
@@ -18,6 +19,10 @@ class CampusesController extends Controller
         return response()->json($campuses);
     }
 
+    public function create(CampusRequest $request){
+        Campus::create($request->all());
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -26,14 +31,10 @@ class CampusesController extends Controller
      */
     public function store(Request $request)
     {
-        $validated =$request->validate([
-            'Name' => 'required',
-            'school' => 'required'
-        ]);
+
 
         $campuse = new Campus();
 
-        if ($validated) {
             $campuse->Name = $request->Name;
             $campuse->school = $request->school;
             $campuse->email = $request->email;
@@ -44,9 +45,7 @@ class CampusesController extends Controller
             } else {
                 return response()->json(["error" => "Adding data failed."], 400);
             }
-        } else {
-            return response()->json(["error" => "Data is wrong"], 400);
-        }
+
     }
 
     /**
@@ -73,13 +72,8 @@ class CampusesController extends Controller
 
         $campuse = Campus::find($id);
 
-        $validated =$request->validate([
-            'Name' => 'required',
-            'school' => 'required'
-        ]);
 
 
-        if ($validated) {
             $campuse->Name = $request->Name;
             $campuse->school = $request->school;
             $campuse->email = $request->email;
@@ -90,9 +84,7 @@ class CampusesController extends Controller
             } else {
                 return response()->json(["error" => "Adding data failed."], 400);
             }
-        } else {
-            return response()->json(["error" => "Data is wrong"], 400);
-        }
+
     }
 
     /**
