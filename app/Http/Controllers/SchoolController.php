@@ -29,31 +29,18 @@ class SchoolController extends Controller
      */
     public function store(Request $request)
     {
-        $validated =$request->validate([
-            'Name' => 'required',
-            'email' => 'required|email',
-            'logo' => 'required|mimes:jpeg,jpg,png,gif|dimensions:min_width=100,min_height=100',
-        ]);
-
             $path = Storage::path($request->logo);
             $path = $request->file('logo')->store(
                 'logo', 'public'
             );
-        if ($validated) {
-            $school = new School();
-            $school->name = $request->name;
-            $school->email = $request->email;
-            $school->logo =$path;
-            $school->website = $request->website;
-            if ($school->save()) {
-               // $mailSent = new newsMail();
-               // $mailSent->sendMail();
-                return response()->json(["success" => "School Added.", "data" => $school], 200);
-            } else {
-                return response()->json(["error" => "Adding data failed."], 400);
-            }
+            $school = School::create($request->post());
+
+            // $mailSent = new newsMail();
+            // $mailSent->sendMail();
+        if ($school) {
+            return response()->json(["success" => "School Added.", "data" => $school], 200);
         } else {
-            return response()->json(["error" => "Data is wrong"], 400);
+            return response()->json(["error" => "Adding data failed."], 400);
         }
     }
 
@@ -90,7 +77,7 @@ class SchoolController extends Controller
             $school->name = $request->name;
             $school->email = $request->email;
             $school->logo = $request->logo;
-            $school->request = $request->request;
+            $school->website = $request->website;
 
             if ($school->update()) {
                 return response()->json(["success" => "Information successfully edited.", "data" => $school], 200);

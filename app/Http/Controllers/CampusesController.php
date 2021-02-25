@@ -31,16 +31,9 @@ class CampusesController extends Controller
      */
     public function store(Request $request)
     {
+        $campuse = Campus::create($request->post());
 
-
-        $campuse = new Campus();
-
-            $campuse->name = $request->name;
-            $campuse->school = $request->school;
-            $campuse->email = $request->email;
-            $campuse->phone = $request->phone;
-            $campuse->address = $request->address;
-            if ($campuse->save()) {
+            if ($campuse) {
                 return response()->json(["success" => "Campuse Added.", "data" => $campuse], 200);
             } else {
                 return response()->json(["error" => "Adding data failed."], 400);
