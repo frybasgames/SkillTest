@@ -24,7 +24,9 @@ class CourseRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required',
+            'campus' => 'required',
+            'courseTypes' => 'required_without_all:courseTypes',
         ];
     }
 }

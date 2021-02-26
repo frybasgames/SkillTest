@@ -24,7 +24,9 @@ class SchoolRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required',
+            'email' => 'required|email',
+            'logo' => 'required|dimensions:min_width=100,min_height=100',
         ];
     }
 }

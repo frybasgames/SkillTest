@@ -13,7 +13,7 @@ class CampusRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return false;
     }
 
     /**
@@ -26,14 +26,6 @@ class CampusRequest extends FormRequest
         return [
             'name' => 'required',
             'school' => 'required'
-        ];
-    }
-
-    public function attributes()
-    {
-        return [
-            'name' => 'name',
-            'school' => 'school'
         ];
     }
 
