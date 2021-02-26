@@ -18,6 +18,10 @@ class CourseTypesController extends Controller
         return response()->json($courseTypes);
     }
 
+    public function create(CourseTypeRequest $request){
+        CourseType::create($request->all());
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -26,12 +30,10 @@ class CourseTypesController extends Controller
      */
     public function store(Request $request)
     {
+        $courseType = CourseType::create($request->post());
 
-
-        $CourseType = CourseType::create($request->post());
-
-        if ($CourseType) {
-            return response()->json(["success" => "CourseType Added.", "data" => $CourseType], 200);
+        if ($courseType) {
+            return response()->json(["success" => "CourseType Added.", "data" => $courseType], 200);
         } else {
             return response()->json(["error" => "Adding data failed."], 400);
         }
@@ -45,8 +47,8 @@ class CourseTypesController extends Controller
      */
     public function show($id)
     {
-        $CourseType = CourseType::find($id);
-        return response()->json($CourseType);
+        $courseType = CourseType::find($id);
+        return response()->json($courseType);
     }
 
     /**
@@ -58,21 +60,13 @@ class CourseTypesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $CourseType = CourseType::find($id);
+        $courseType = CourseType::find($id);
+        $input = $request->all();
 
-        $request->validate([
-            'Name' => 'required'
-        ]);
-
-        if($request){
-            $CourseType->name = $request->name;
-            if($CourseType->update()){
-                return response()->json(["success" => "Information successfully edited.", "data" => $CourseType], 200);
-            } else {
-                return response()->json(["error" => "Update data failed.", "data" => $CourseType], 400);
-            }
-        }else{
-            return response()->json(["error" => "Data is wrong.", "data" => $CourseType], 400);
+        if ($courseType->fill($input)->save()) {
+             return response()->json(["success" => "Information successfully edited.", "data" => $courseType], 200);
+        } else {
+             return response()->json(["error" => "Update data failed.", "data" => $courseType], 400);
         }
     }
 

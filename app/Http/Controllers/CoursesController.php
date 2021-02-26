@@ -18,6 +18,10 @@ class CoursesController extends Controller
         return response()->json($courses);
     }
 
+    public function create(CourseRequest $request){
+        Course::create($request->all());
+    }
+
 
     public function store(Request $request)
     {
@@ -53,27 +57,12 @@ class CoursesController extends Controller
     {
         $course = Course::find($id);
 
-        $validated=$request->validate([
-            'Name' => 'required',
-            'campus' => 'required',
-            'courseTypes' => 'required_without_all:courseTypes',
-        ]);
+        $input = $request->all();
 
-
-
-
-        if ($validated) {
-            $course->name = $request->name;
-            $course->campus = $request->campus;
-            $course->courseTypes = $request->courseTypes;
-            $course->price = $request->price;
-            if ($course->save()) {
-                return response()->json(["success" => "Course Added.", "data" => $course], 200);
-            } else {
-                return response()->json(["error" => "Adding data failed."], 400);
-            }
+        if ($course->fill($input)->save()) {
+            return response()->json(["success" => "Course Added.", "data" => $course], 200);
         } else {
-            return response()->json(["error" => "Data is wrong"], 400);
+            return response()->json(["error" => "Adding data failed."], 400);
         }
 
     }

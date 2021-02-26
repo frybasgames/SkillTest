@@ -62,21 +62,15 @@ class CampusesController extends Controller
      */
     public function update(Request $request, $id)
     {
-
         $campuse = Campus::find($id);
 
+        $input = $request->all();
 
-
-            $campuse->name = $request->name;
-            $campuse->school = $request->school;
-            $campuse->email = $request->email;
-            $campuse->phone = $request->phone;
-            $campuse->address = $request->address;
-            if ($campuse->save()) {
-                return response()->json(["success" => "Campuse Added."], 200);
-            } else {
-                return response()->json(["error" => "Adding data failed."], 400);
-            }
+        if ($campuse->fill($input)->save()) {
+            return response()->json(["success" => "Campuse Added."], 200);
+        } else {
+            return response()->json(["error" => "Adding data failed."], 400);
+        }
 
     }
 

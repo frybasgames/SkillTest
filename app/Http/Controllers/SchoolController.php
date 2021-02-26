@@ -21,6 +21,10 @@ class SchoolController extends Controller
         return response()->json($schools);
     }
 
+    public function create(SchoolRequest $request){
+        School::create($request->all());
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -67,26 +71,14 @@ class SchoolController extends Controller
     {
         $school = School::find($id);
 
-        $request->validate([
-            'Name' => 'required',
-            'email' => 'required|email',
-            'logo' => 'required|dimensions:min_width=100,min_height=100',
-        ]);
+        $input = $request->all();
 
-        if ($request) {
-            $school->name = $request->name;
-            $school->email = $request->email;
-            $school->logo = $request->logo;
-            $school->website = $request->website;
-
-            if ($school->update()) {
-                return response()->json(["success" => "Information successfully edited.", "data" => $school], 200);
-            } else {
-                return response()->json(["error" => "Update data failed.", "data" => $school], 400);
-            }
+        if ($school->fill($input)->save()) {
+           return response()->json(["success" => "Information successfully edited.", "data" => $school], 200);
         } else {
-            return response()->json(["error" => "Data is wrong.", "data" => $school], 400);
+           return response()->json(["error" => "Update data failed.", "data" => $school], 400);
         }
+
     }
 
     /**
